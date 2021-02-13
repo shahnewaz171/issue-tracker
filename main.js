@@ -1,6 +1,6 @@
 
 document.getElementById('issueInputForm').addEventListener('submit', submitIssue);
-
+ 
 function submitIssue(e) {
   e.preventDefault();
   const getInputValue = id => document.getElementById(id).value;
@@ -9,20 +9,28 @@ function submitIssue(e) {
   const assignedTo = getInputValue('issueAssignedTo');
   const id = Math.floor(Math.random()*100000000) + '';
   const status = 'Open';
-
   const issue = { id, description, severity, assignedTo, status };
   let issues = [];
-  if (localStorage.getItem('issues')){
-    issues = JSON.parse(localStorage.getItem('issues'));
+  
+  if(assignedTo == ""){
+    console.log('Error');
   }
-  issues.push(issue);
-  localStorage.setItem('issues', JSON.stringify(issues));
+  else if(description == ""){
+    console.log('des');
+  }
+  else{
+    if (localStorage.getItem('issues')){
+      issues = JSON.parse(localStorage.getItem('issues'));
+    }
+    issues.push(issue);
+    localStorage.setItem('issues', JSON.stringify(issues));
 
-  document.getElementById('issueInputForm').reset();
-  totalIssues();
-  totalOpenIssue();
-  fetchIssues();
-  e.preventDefault();
+    document.getElementById('issueInputForm').reset();
+    totalIssues();
+    totalOpenIssue();
+    fetchIssues();
+    e.preventDefault();
+  }
 }
 
 const totalOpenIssue = () => {
@@ -49,12 +57,9 @@ totalIssues();
 
 const  setStatusClosed = (event, id)=> {
   event.preventDefault();
-  // const closeIssue = document.getElementById(`issue-title-${id}`).innerText = '';
-  // console.log(closeIssue.strike());
   const issues = JSON.parse(localStorage.getItem('issues'));
   const currentIssue = issues.find(issue => issue.id == id);
   console.log("currentIssue",currentIssue);
-  // document.getElementById(`issue-title-${id}`).style.textDecoration = 'line-through';
   currentIssue.status = 'Closed';
   currentIssue.description = currentIssue.description.strike();
   localStorage.setItem('issues', JSON.stringify(issues));
@@ -91,8 +96,3 @@ const fetchIssues = () => {
   }
   
 };
-
-// const lineThrough = (id) => {
-//   document.getElementById(`issue-title-${id}`).style.textDecoration = "line-through";
-//   console.log('Hello');
-// };
