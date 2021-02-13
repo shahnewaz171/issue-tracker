@@ -1,6 +1,8 @@
+
 document.getElementById('issueInputForm').addEventListener('submit', submitIssue);
 
 function submitIssue(e) {
+  e.preventDefault();
   const getInputValue = id => document.getElementById(id).value;
   const description = getInputValue('issueDescription');
   const severity = getInputValue('issueSeverity');
@@ -52,14 +54,12 @@ const  setStatusClosed = (event, id)=> {
   const issues = JSON.parse(localStorage.getItem('issues'));
   const currentIssue = issues.find(issue => issue.id == id);
   console.log("currentIssue",currentIssue);
+  // document.getElementById(`issue-title-${id}`).style.textDecoration = 'line-through';
   currentIssue.status = 'Closed';
+  currentIssue.description = currentIssue.description.strike();
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
   totalOpenIssue();
-  document.getElementById(`issue-title-${id}`).style.textDecoration = 'line-through';
-  
-  
-  
 };
 const deleteIssue = (event, id) => {
   event.preventDefault();
