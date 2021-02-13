@@ -12,11 +12,12 @@ function submitIssue(e) {
   const issue = { id, description, severity, assignedTo, status };
   let issues = [];
   
-  if(assignedTo == ""){
-    console.log('Error');
+  if(description == ""){
+    document.getElementById('description-alert').innerText = 'Please write the description';
   }
-  else if(description == ""){
-    console.log('des');
+  else if(assignedTo == ""){
+    document.getElementById('assign-alert').innerText = 'Please enter the responsible';
+    document.getElementById('description-alert').innerText = "";
   }
   else{
     if (localStorage.getItem('issues')){
@@ -30,6 +31,8 @@ function submitIssue(e) {
     totalOpenIssue();
     fetchIssues();
     e.preventDefault();
+    document.getElementById('assign-alert').innerText = "";
+    document.getElementById('description-alert').innerText = "";
   }
 }
 
