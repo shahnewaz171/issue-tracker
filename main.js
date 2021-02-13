@@ -47,13 +47,18 @@ totalIssues();
 
 const  setStatusClosed = (event, id)=> {
   event.preventDefault();
+  // const closeIssue = document.getElementById(`issue-title-${id}`).innerText = '';
+  // console.log(closeIssue.strike());
   const issues = JSON.parse(localStorage.getItem('issues'));
   const currentIssue = issues.find(issue => issue.id == id);
+  console.log("currentIssue",currentIssue);
   currentIssue.status = 'Closed';
   localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
   totalOpenIssue();
-  document.getElementById(`issue-title-${id}`).style.textDecoration = "line-through";
+  document.getElementById(`issue-title-${id}`).style.textDecoration = 'line-through';
+  
+  
   
 };
 
@@ -86,4 +91,9 @@ const fetchIssues = () => {
                               </div>`;
   }
   
-}
+};
+
+// const lineThrough = (id) => {
+//   document.getElementById(`issue-title-${id}`).style.textDecoration = "line-through";
+//   console.log('Hello');
+// };
