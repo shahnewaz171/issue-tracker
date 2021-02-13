@@ -61,7 +61,6 @@ const  setStatusClosed = (event, id)=> {
   
   
 };
-
 const deleteIssue = (event, id) => {
   event.preventDefault();
   const issues = JSON.parse(localStorage.getItem('issues'));
